@@ -7,7 +7,7 @@ from diffusers import (
     StableDiffusionPipeline,
 )
 import torch
-from backend.tiny_autoencoder import get_tiny_autoencoder_repo_id
+from tiny_autoencoder import get_tiny_autoencoder_repo_id
 from typing import Any
 from diffusers import (
     LCMScheduler,

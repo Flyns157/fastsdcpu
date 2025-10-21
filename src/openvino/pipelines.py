@@ -8,8 +8,8 @@ from optimum.intel.openvino.modeling_diffusion import (
     OVModelVaeEncoder,
 )
 
-from src.backend.utils.device import is_openvino_device
-from backend.tiny_autoencoder import get_tiny_autoencoder_repo_id
+from utils.device import is_openvino_device
+from src.tiny_autoencoder import get_tiny_autoencoder_repo_id
 from constants import DEVICE, LCM_DEFAULT_MODEL_OPENVINO
 from src.utils.paths import get_base_folder_name
 

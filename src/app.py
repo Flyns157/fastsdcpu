@@ -4,7 +4,7 @@ from argparse import ArgumentParser
 from PIL import Image
 
 import constants
-from backend.controlnet import controlnet_settings_from_dict
+from src.controlnet import controlnet_settings_from_dict
 from utils.device import get_device_name
 from models.images import ImageFormat
 from models.lcmdiffusion_setting import DiffusionTask

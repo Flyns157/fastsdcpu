@@ -4,8 +4,8 @@ from traceback import print_exc
 from typing import Any
 
 from app_settings import Settings
-from backend.image_saver import ImageSaver
-from backend.lcm_text_to_image import LCMTextToImage
+from image_saver import ImageSaver
+from lcm_text_to_image import LCMTextToImage
 from models.lcmdiffusion_setting import DiffusionTask
 from utils.image import get_blank_image
 from models.interface_types import InterfaceType

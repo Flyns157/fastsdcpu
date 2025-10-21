@@ -3,7 +3,7 @@ from typing import Optional
 
 from context import Context
 from models.interface_types import InterfaceType
-from backend.safety_checker import SafetyChecker
+from safety_checker import SafetyChecker
 
 
 class _AppState:

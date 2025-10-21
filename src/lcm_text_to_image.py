@@ -3,11 +3,10 @@ from math import ceil
 from typing import Any, List
 import random
 
-import numpy as np
 import torch
 from utils.device import is_openvino_device
-from backend.lora import reset_active_lora_weights
-from backend.controlnet import (
+from lora import reset_active_lora_weights
+from controlnet import (
     load_controlnet_adapters,
     update_controlnet_arguments,
 )
