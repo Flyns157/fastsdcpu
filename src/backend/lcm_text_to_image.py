@@ -5,40 +5,40 @@ import random
 
 import numpy as np
 import torch
-from backend.device import is_openvino_device
+from utils.device import is_openvino_device
 from backend.lora import reset_active_lora_weights
 from backend.controlnet import (
     load_controlnet_adapters,
     update_controlnet_arguments,
 )
-from backend.models.lcmdiffusion_setting import (
+from models.lcmdiffusion_setting import (
     DiffusionTask,
     LCMDiffusionSetting,
     LCMLora,
 )
-from backend.openvino.pipelines import (
+from openvino.pipelines import (
     get_ov_image_to_image_pipeline,
     get_ov_text_to_image_pipeline,
     ov_load_tiny_autoencoder,
     get_ov_diffusion_pipeline,
 )
-from backend.pipelines.lcm import (
+from pipelines.lcm import (
     get_image_to_image_pipeline,
     get_lcm_model_pipeline,
     load_taesd,
 )
-from backend.pipelines.lcm_lora import get_lcm_lora_pipeline
+from pipelines.lcm_lora import get_lcm_lora_pipeline
 from constants import DEVICE, GGUF_THREADS
 from diffusers import LCMScheduler
 from image_ops import resize_pil_image
-from backend.openvino.ov_hc_stablediffusion_pipeline import OvHcLatentConsistency
-from backend.gguf.gguf_diffusion import (
+from openvino.ov_hc_stablediffusion_pipeline import OvHcLatentConsistency
+from gguf.gguf_diffusion import (
     GGUFDiffusion,
     ModelConfig,
     Txt2ImgConfig,
     SampleMethod,
 )
-from paths import get_app_path
+from src.utils.paths import get_app_path
 from pprint import pprint
 
 try:

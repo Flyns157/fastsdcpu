@@ -6,8 +6,8 @@ from typing import Any
 from app_settings import Settings
 from backend.image_saver import ImageSaver
 from backend.lcm_text_to_image import LCMTextToImage
-from backend.models.lcmdiffusion_setting import DiffusionTask
-from backend.utils import get_blank_image
+from models.lcmdiffusion_setting import DiffusionTask
+from utils.image import get_blank_image
 from models.interface_types import InterfaceType
 
 

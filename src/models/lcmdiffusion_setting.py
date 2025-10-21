@@ -3,7 +3,7 @@ from PIL import Image
 from typing import Any, Optional, Union
 
 from constants import LCM_DEFAULT_MODEL, LCM_DEFAULT_MODEL_OPENVINO
-from paths import FastStableDiffusionPaths
+from src.utils.paths import FastStableDiffusionPaths
 from pydantic import BaseModel
 
 

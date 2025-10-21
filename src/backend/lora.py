@@ -1,6 +1,6 @@
 import glob
 from os import path
-from paths import get_file_name, FastStableDiffusionPaths
+from utils.paths import get_file_name, FastStableDiffusionPaths
 from pathlib import Path
 
 

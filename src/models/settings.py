@@ -1,6 +1,6 @@
 from pydantic import BaseModel
-from backend.models.lcmdiffusion_setting import LCMDiffusionSetting, LCMLora
-from backend.models.gen_images import GeneratedImages
+from models.lcmdiffusion_setting import LCMDiffusionSetting, LCMLora
+from models.images import GeneratedImages
 
 
 class Settings(BaseModel):

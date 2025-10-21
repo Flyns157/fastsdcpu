@@ -13,7 +13,7 @@ def is_openvino_device() -> bool:
         return False
 
 
-def get_device_name() -> str:
+def get_device_name() -> str | None:
     if DEVICE == "cuda" or DEVICE == "mps":
         default_gpu_index = torch.cuda.current_device()
         return torch.cuda.get_device_name(default_gpu_index)

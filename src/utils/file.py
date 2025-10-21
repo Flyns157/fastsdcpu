@@ -1,15 +1,7 @@
 from os import path, listdir
-import platform
 from typing import List
 
-
-def show_system_info():
-    try:
-        print(f"Running on {platform.system()} platform")
-        print(f"OS: {platform.platform()}")
-        print(f"Processor: {platform.processor()}")
-    except Exception as ex:
-        print(f"Error occurred while getting system information {ex}")
+from models.images import ImageFormat
 
 
 def get_models_from_text_file(file_path: str) -> List:
@@ -22,11 +14,9 @@ def get_models_from_text_file(file_path: str) -> List:
     return models
 
 
-def get_image_file_extension(image_format: str) -> str:
-    if image_format == "JPEG":
-        return ".jpg"
-    elif image_format == "PNG":
-        return ".png"
+def get_image_file_extension(image_format: ImageFormat) -> str:
+    if isinstance(image_format, ImageFormat):
+        return image_format.value.lower()
 
 
 def get_files_in_dir(root_dir: str) -> List:

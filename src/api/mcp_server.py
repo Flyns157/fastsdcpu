@@ -1,7 +1,7 @@
 import platform
 
 import uvicorn
-from backend.device import get_device_name
+from src.backend.utils.device import get_device_name
 from backend.models.device import DeviceInfo
 from constants import APP_VERSION, DEVICE
 from context import Context

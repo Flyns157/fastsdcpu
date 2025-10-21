@@ -5,16 +5,16 @@ from PIL import Image
 
 import constants
 from backend.controlnet import controlnet_settings_from_dict
-from backend.device import get_device_name
-from backend.models.gen_images import ImageFormat
-from backend.models.lcmdiffusion_setting import DiffusionTask
-from backend.upscale.tiled_upscale import generate_upscaled_image
+from utils.device import get_device_name
+from models.images import ImageFormat
+from models.lcmdiffusion_setting import DiffusionTask
+from upscale.tiled_upscale import generate_upscaled_image
 from constants import APP_VERSION, DEVICE
-from frontend.webui.image_variations_ui import generate_image_variations
+# from frontend.webui.image_variations_ui import generate_image_variations
 from models.interface_types import InterfaceType
-from paths import FastStableDiffusionPaths, ensure_path
+from src.utils.paths import FastStableDiffusionPaths, ensure_path
 from state import get_context, get_settings
-from utils import show_system_info
+from src.utils import show_system_info
 
 parser = ArgumentParser(description=f"FAST SD CPU {constants.APP_VERSION}")
 parser.add_argument(
@@ -453,11 +453,11 @@ else:
         )
         exit()
     # If img2img argument is set and prompt is empty, use image variations mode
-    elif args.img2img and args.prompt == "":
-        for i in range(0, args.batch_count):
-            generate_image_variations(
-                config.lcm_diffusion_setting.init_image, args.strength
-            )
+    # elif args.img2img and args.prompt == "":
+    #     for i in range(0, args.batch_count):
+    #         generate_image_variations(
+    #             config.lcm_diffusion_setting.init_image, args.strength
+    #         )
     else:
         if args.benchmark:
             print("Initializing benchmark...")

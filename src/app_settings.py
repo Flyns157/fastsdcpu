@@ -8,8 +8,8 @@ from constants import (
     OPENVINO_LCM_MODELS_FILE,
     SD_MODELS_FILE,
 )
-from paths import FastStableDiffusionPaths, join_paths
-from utils import get_files_in_dir, get_models_from_text_file
+from utils.paths import FastStableDiffusionPaths, join_paths
+from utils.file import get_files_in_dir, get_models_from_text_file
 
 from models.settings import Settings
 
