@@ -26,18 +26,6 @@ parser.add_argument(
 )
 group = parser.add_mutually_exclusive_group(required=False)
 group.add_argument(
-    "-g",
-    "--gui",
-    action="store_true",
-    help="Start desktop GUI",
-)
-group.add_argument(
-    "-w",
-    "--webui",
-    action="store_true",
-    help="Start Web UI",
-)
-group.add_argument(
     "-a",
     "--api",
     action="store_true",
@@ -258,6 +246,12 @@ parser.add_argument(
     help="Web server port",
     default=8000,
 )
+parser.add_argument(
+    "-h",
+    "--help",
+    action="store_true",
+    help="Show help",
+)
 
 args = parser.parse_args()
 
@@ -265,16 +259,16 @@ if args.version:
     print(APP_VERSION)
     exit()
 
-# parser.print_help()
+if args.help:
+    parser.print_help()
+    exit()
+
 print("FastSD CPU - ", APP_VERSION)
 show_system_info()
 print(f"Using device : {constants.DEVICE}")
 
 
-if args.webui:
-    app_settings = get_settings()
-else:
-    app_settings = get_settings()
+app_settings = get_settings()
 
 print(f"Output path : {app_settings.settings.generated_images.path}")
 ensure_path(app_settings.settings.generated_images.path)
@@ -299,35 +293,20 @@ app_settings.settings.generated_images.save_image_quality = args.imagequality
 
 if not args.realtime:
     # To minimize realtime mode dependencies
-    from backend.upscale.upscaler import upscale_image
-    from frontend.cli_interactive import interactive_mode
+    from upscale.upscaler import upscale_image
+    # from frontend.cli_interactive import interactive_mode
 
-if args.gui:
-    from frontend.gui.ui import start_gui
-
-    print("Starting desktop GUI mode(Qt)")
-    start_gui(
-        [],
-        app_settings,
-    )
-elif args.webui:
-    from frontend.webui.ui import start_webui
-
-    print("Starting web UI mode")
-    start_webui(
-        args.share,
-    )
-elif args.realtime:
-    from frontend.webui.realtime_ui import start_realtime_text_to_image
+if args.realtime:
+    # from frontend.webui.realtime_ui import start_realtime_text_to_image
 
     print("Starting realtime text to image(EXPERIMENTAL)")
-    start_realtime_text_to_image(args.share)
+    # start_realtime_text_to_image(args.share)
 elif args.api:
-    from backend.api.web import start_web_server
+    from api.web import start_web_server
 
     start_web_server(args.port)
 elif args.mcp:
-    from backend.api.mcp_server import start_mcp_server
+    from api.mcp_server import start_mcp_server
 
     start_mcp_server(args.port)
 else:
