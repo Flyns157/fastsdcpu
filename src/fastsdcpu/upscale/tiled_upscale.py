@@ -2,7 +2,7 @@ import time
 import math
 import logging
 from PIL import Image, ImageDraw, ImageFilter
-from backend.models.lcmdiffusion_setting import DiffusionTask
+from models.lcmdiffusion_setting import DiffusionTask
 from context import Context
 from constants import DEVICE
 

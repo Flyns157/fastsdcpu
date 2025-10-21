@@ -20,7 +20,7 @@ from typing import List, Any
 import numpy as np
 from PIL import Image
 
-from backend.gguf.sdcpp_types import (
+from models.sdcpp import (
     RngType,
     SampleMethod,
     Schedule,
@@ -67,7 +67,7 @@ class Txt2ImgConfig:
     sample_steps: int = 1
     seed: int = -1
     batch_count: int = 2
-    control_cond: Image = None
+    control_cond: Image.Image = None
     control_strength: float = 0.90
     style_strength: float = 0.5
     normalize_input: bool = False
@@ -119,26 +119,26 @@ class GGUFDiffusion:
         self.model_config = config
 
         self.libsdcpp.new_sd_ctx.argtypes = [
-            c_char_p,  # const char* model_path
-            c_char_p,  # const char* clip_l_path
-            c_char_p,  # const char* t5xxl_path
-            c_char_p,  # const char* diffusion_model_path
-            c_char_p,  # const char* vae_path
-            c_char_p,  # const char* taesd_path
-            c_char_p,  # const char* control_net_path_c_str
-            c_char_p,  # const char* lora_model_dir
-            c_char_p,  # const char* embed_dir_c_str
-            c_char_p,  # const char* stacked_id_embed_dir_c_str
-            c_bool,  # bool vae_decode_only
-            c_bool,  # bool vae_tiling
-            c_bool,  # bool free_params_immediately
-            c_int,  # int n_threads
-            SdType,  # enum sd_type_t wtype
-            RngType,  # enum rng_type_t rng_type
-            Schedule,  # enum schedule_t s
-            c_bool,  # bool keep_clip_on_cpu
-            c_bool,  # bool keep_control_net_cpu
-            c_bool,  # bool keep_vae_on_cpu
+            c_char_p,   # const char* model_path
+            c_char_p,   # const char* clip_l_path
+            c_char_p,   # const char* t5xxl_path
+            c_char_p,   # const char* diffusion_model_path
+            c_char_p,   # const char* vae_path
+            c_char_p,   # const char* taesd_path
+            c_char_p,   # const char* control_net_path_c_str
+            c_char_p,   # const char* lora_model_dir
+            c_char_p,   # const char* embed_dir_c_str
+            c_char_p,   # const char* stacked_id_embed_dir_c_str
+            c_bool,     # bool vae_decode_only
+            c_bool,     # bool vae_tiling
+            c_bool,     # bool free_params_immediately
+            c_int,      # int n_threads
+            SdType,     # enum sd_type_t wtype
+            RngType,    # enum rng_type_t rng_type
+            Schedule,   # enum schedule_t s
+            c_bool,     # bool keep_clip_on_cpu
+            c_bool,     # bool keep_control_net_cpu
+            c_bool,     # bool keep_vae_on_cpu
         ]
 
         self.libsdcpp.new_sd_ctx.restype = POINTER(c_void_p)

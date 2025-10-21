@@ -1,4 +1,4 @@
-from backend.upscale.aura_sr import AuraSR
+from upscale.aura_sr import AuraSR
 from PIL import Image
 
 

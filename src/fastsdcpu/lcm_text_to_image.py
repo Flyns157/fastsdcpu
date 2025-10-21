@@ -15,7 +15,7 @@ from models.lcmdiffusion_setting import (
     LCMDiffusionSetting,
     LCMLora,
 )
-from openvino.pipelines import (
+from pipelines.openvino import (
     get_ov_image_to_image_pipeline,
     get_ov_text_to_image_pipeline,
     ov_load_tiny_autoencoder,
@@ -26,12 +26,12 @@ from pipelines.lcm import (
     get_lcm_model_pipeline,
     load_taesd,
 )
-from pipelines.lcm_lora import get_lcm_lora_pipeline
+from pipelines.lcm.lora import get_lcm_lora_pipeline
 from constants import DEVICE, GGUF_THREADS
 from diffusers import LCMScheduler
-from image_ops import resize_pil_image
-from openvino.ov_hc_stablediffusion_pipeline import OvHcLatentConsistency
-from gguf.gguf_diffusion import (
+from utils.image import resize_pil_image
+from pipelines.openvino.ov_hc_stablediffusion_pipeline import OvHcLatentConsistency
+from gguf_diffusion import (
     GGUFDiffusion,
     ModelConfig,
     Txt2ImgConfig,

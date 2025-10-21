@@ -38,3 +38,17 @@ def get_blank_image(
         Image.Image: A blank image with the specified dimensions.
     """
     return Image.new("RGB", (width, height), (0, 0, 0))
+
+
+def resize_pil_image(
+    pil_image: Image.Image,
+    image_width,
+    image_height,
+):
+    return pil_image.convert("RGB").resize(
+        (
+            image_width,
+            image_height,
+        ),
+        Image.Resampling.LANCZOS,
+    )

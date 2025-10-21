@@ -1,4 +1,3 @@
-from pathlib import Path
 from typing import Any
 
 from optimum.intel.openvino import OVDiffusionPipeline
