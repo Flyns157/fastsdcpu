@@ -7,6 +7,6 @@ class ControlInterface(ABC):
     @abstractmethod
     def get_control_image(
         self,
-        image: Image,
-    ) -> Image:
+        image: Image.Image,
+    ) -> Image.Image:
         pass

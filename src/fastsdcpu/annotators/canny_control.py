@@ -1,11 +1,11 @@
 import numpy as np
-from backend.annotators.control_interface import ControlInterface
+from annotators.control_interface import ControlInterface
 from cv2 import Canny
 from PIL import Image
 
 
 class CannyControl(ControlInterface):
-    def get_control_image(self, image: Image) -> Image:
+    def get_control_image(self, image: Image.Image) -> Image.Image:
         low_threshold = 100
         high_threshold = 200
         image = np.array(image)

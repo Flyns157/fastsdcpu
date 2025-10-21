@@ -1,11 +1,11 @@
-from backend.annotators.canny_control import CannyControl
-from backend.annotators.depth_control import DepthControl
-from backend.annotators.lineart_control import LineArtControl
-from backend.annotators.mlsd_control import MlsdControl
-from backend.annotators.normal_control import NormalControl
-from backend.annotators.pose_control import PoseControl
-from backend.annotators.shuffle_control import ShuffleControl
-from backend.annotators.softedge_control import SoftEdgeControl
+from annotators.canny_control import CannyControl
+from annotators.depth_control import DepthControl
+from annotators.lineart_control import LineArtControl
+from annotators.mlsd_control import MlsdControl
+from annotators.normal_control import NormalControl
+from annotators.pose_control import PoseControl
+from annotators.shuffle_control import ShuffleControl
+from annotators.softedge_control import SoftEdgeControl
 
 
 class ImageControlFactory:
