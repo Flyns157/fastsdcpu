@@ -2,7 +2,7 @@ import os
 import constants
 from pathlib import Path
 from time import time
-from src.utils import get_image_file_extension
+from utils.file import get_image_file_extension
 
 
 def join_paths(

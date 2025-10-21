@@ -1,8 +1,6 @@
 from os import path, listdir
 from typing import List
 
-from models.images import ImageFormat
-
 
 def get_models_from_text_file(file_path: str) -> List:
     models = []
@@ -14,9 +12,11 @@ def get_models_from_text_file(file_path: str) -> List:
     return models
 
 
-def get_image_file_extension(image_format: ImageFormat) -> str:
-    if isinstance(image_format, ImageFormat):
-        return image_format.value.lower()
+def get_image_file_extension(image_format: str) -> str:
+    if image_format == "PNG":
+        return ".png"
+    elif image_format == "JPEG":
+        return ".jpg"
 
 
 def get_files_in_dir(root_dir: str) -> List:

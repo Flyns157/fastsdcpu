@@ -22,4 +22,4 @@ echo "Python version : $python_version"
 BASEDIR=$(pwd)
 # shellcheck disable=SC1091
 source "$BASEDIR/env/bin/activate"
-$PYTHON_COMMAND src/app.py --api
+$PYTHON_COMMAND src/fastsdcpu/app.py --api
