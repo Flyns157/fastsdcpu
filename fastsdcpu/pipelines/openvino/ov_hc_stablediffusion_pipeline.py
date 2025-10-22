@@ -1,11 +1,10 @@
 """This is an experimental pipeline used to test AI PC NPU and GPU"""
-
-from pathlib import Path
-
 from diffusers import EulerDiscreteScheduler,LCMScheduler
 from huggingface_hub import snapshot_download
+from pathlib import Path
 from PIL import Image
-from backend.openvino.stable_diffusion_engine import (
+
+from ...pipelines.openvino.stable_diffusion_engine import (
     StableDiffusionEngineAdvanced,
     LatentConsistencyEngineAdvanced
 )

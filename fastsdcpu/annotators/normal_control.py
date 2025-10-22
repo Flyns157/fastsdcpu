@@ -1,6 +1,7 @@
-from annotators.control_interface import ControlInterface
 from controlnet_aux import NormalBaeDetector
 from PIL.Image import Image
+
+from .control_interface import ControlInterface
 
 
 class NormalControl(ControlInterface):

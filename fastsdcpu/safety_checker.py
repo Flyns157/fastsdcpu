@@ -1,8 +1,7 @@
+from transformers import pipeline
 from typing import Any
 
-from transformers import pipeline
-
-from constants import SAFETY_CHECKER_MODEL
+from .constants import SAFETY_CHECKER_MODEL
 
 
 class SafetyChecker:

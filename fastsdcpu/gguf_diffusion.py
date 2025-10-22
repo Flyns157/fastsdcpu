@@ -1,26 +1,25 @@
 """
 Wrapper class to call the stablediffusion.cpp shared library for GGUF support
 """
-
-import ctypes
+from dataclasses import dataclass
+from typing import List, Any
+from PIL import Image
+from os import path
+import numpy as np
 import platform
 from ctypes import (
     POINTER,
+    CFUNCTYPE,
     c_bool,
     c_char_p,
     c_float,
     c_int,
     c_int64,
     c_void_p,
+    CDLL,
 )
-from dataclasses import dataclass
-from os import path
-from typing import List, Any
 
-import numpy as np
-from PIL import Image
-
-from models.sdcpp import (
+from .models.sdcpp import (
     RngType,
     SampleMethod,
     Schedule,
@@ -89,7 +88,7 @@ class GGUFDiffusion:
     ):
         sdcpp_shared_lib_path = self._get_sdcpp_shared_lib_path(libpath)
         try:
-            self.libsdcpp = ctypes.CDLL(sdcpp_shared_lib_path)
+            self.libsdcpp = CDLL(sdcpp_shared_lib_path)
         except OSError as e:
             print(f"Failed to load library {sdcpp_shared_lib_path}")
             raise ValueError(f"Error: {e}")
@@ -172,16 +171,16 @@ class GGUFDiffusion:
     def _set_logcallback(self):
         print("Setting logging callback")
         # Define function callback
-        SdLogCallbackType = ctypes.CFUNCTYPE(
+        SdLogCallbackType = CFUNCTYPE(
             None,
             SDCPPLogLevel,
-            ctypes.c_char_p,
-            ctypes.c_void_p,
+            c_char_p,
+            c_void_p,
         )
 
         self.libsdcpp.sd_set_log_callback.argtypes = [
             SdLogCallbackType,
-            ctypes.c_void_p,
+            c_void_p,
         ]
         self.libsdcpp.sd_set_log_callback.restype = None
         # Convert the Python callback to a C func pointer

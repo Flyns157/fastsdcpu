@@ -1,8 +1,8 @@
-from io import BytesIO
 from base64 import b64encode, b64decode
+from io import BytesIO
 from PIL import Image
 
-from backend.models.images import ImageFormat
+from ..models.images import ImageFormat
 
 
 def pil_image_to_base64_str(

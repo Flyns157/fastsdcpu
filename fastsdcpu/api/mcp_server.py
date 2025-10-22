@@ -1,16 +1,17 @@
-import platform
-
-import uvicorn
-from src.backend.utils.device import get_device_name
-from backend.models.device import DeviceInfo
-from constants import APP_VERSION, DEVICE
-from context import Context
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from fastapi import FastAPI, Request
 from fastapi_mcp import FastApiMCP
-from state import get_settings
-from fastapi.middleware.cors import CORSMiddleware
-from models.interface_types import InterfaceType
-from fastapi.staticfiles import StaticFiles
+import platform
+import uvicorn
+
+from ..models.interface_types import InterfaceType
+from ..constants import APP_VERSION, DEVICE
+from ..utils.device import get_device_name
+from ..models.device import DeviceInfo
+from ..state import get_settings
+from ..context import Context
+
 
 SERVER_PORT = 8000
 

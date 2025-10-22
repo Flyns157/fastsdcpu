@@ -1,4 +1,4 @@
-from constants import (
+from .constants import (
     TAESD_MODEL,
     TAESDXL_MODEL,
     TAESD_MODEL_OPENVINO,

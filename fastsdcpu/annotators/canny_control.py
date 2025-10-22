@@ -1,7 +1,8 @@
 import numpy as np
-from annotators.control_interface import ControlInterface
 from cv2 import Canny
 from PIL import Image
+
+from .control_interface import ControlInterface
 
 
 class CannyControl(ControlInterface):

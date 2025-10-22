@@ -1,8 +1,9 @@
-import os
-import constants
 from pathlib import Path
 from time import time
-from utils.file import get_image_file_extension
+import constants
+import os
+
+from .file import get_image_file_extension
 
 
 def join_paths(

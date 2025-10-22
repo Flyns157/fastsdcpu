@@ -1,10 +1,9 @@
-import time
-import math
-import logging
-from PIL import Image, ImageDraw, ImageFilter
 from models.lcmdiffusion_setting import DiffusionTask
-from context import Context
+from PIL import Image, ImageDraw, ImageFilter
 from constants import DEVICE
+from context import Context
+import logging
+import math
 
 
 def generate_upscaled_image(

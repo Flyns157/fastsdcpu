@@ -1,16 +1,16 @@
-from typing import Any
-
 from optimum.intel.openvino import OVDiffusionPipeline
+from typing import Any
 from optimum.intel.openvino.modeling_diffusion import (
     OVModelVae,
     OVModelVaeDecoder,
     OVModelVaeEncoder,
 )
 
-from utils.device import is_openvino_device
-from tiny_autoencoder import get_tiny_autoencoder_repo_id
-from constants import DEVICE, LCM_DEFAULT_MODEL_OPENVINO
-from utils.paths import get_base_folder_name
+from ...tiny_autoencoder import get_tiny_autoencoder_repo_id
+from ...constants import DEVICE, LCM_DEFAULT_MODEL_OPENVINO
+from ...utils.paths import get_base_folder_name
+from ...utils.device import is_openvino_device
+
 
 if is_openvino_device():
     from huggingface_hub import snapshot_download

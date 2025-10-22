@@ -1,18 +1,18 @@
-import platform
-
-import uvicorn
-from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi import FastAPI
+import platform
+import uvicorn
 
-from backend.api.models.response import StableDiffusionResponse
-from src.backend.utils.image import base64_image_to_pil, pil_image_to_base64_str
-from src.backend.utils.device import get_device_name
-from backend.models.device import DeviceInfo
-from backend.models.lcmdiffusion_setting import DiffusionTask, LCMDiffusionSetting
-from constants import APP_VERSION, DEVICE
-from context import Context
-from models.interface_types import InterfaceType
-from state import get_settings
+from ..models.lcmdiffusion_setting import DiffusionTask, LCMDiffusionSetting
+from ..utils.image import base64_image_to_pil, pil_image_to_base64_str
+from ..models.interface_types import InterfaceType
+from ..constants import APP_VERSION, DEVICE
+from ..utils.device import get_device_name
+from .dto import StableDiffusionResponse
+from ..models.device import DeviceInfo
+from ..context import Context
+from ..state import get_settings
+
 
 app_settings = get_settings()
 app = FastAPI(

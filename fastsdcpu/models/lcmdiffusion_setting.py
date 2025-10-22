@@ -1,10 +1,10 @@
+from typing import Any, Optional, Union
+from pydantic import BaseModel
 from enum import Enum
 from PIL import Image
-from typing import Any, Optional, Union
 
-from constants import LCM_DEFAULT_MODEL, LCM_DEFAULT_MODEL_OPENVINO
-from utils.paths import FastStableDiffusionPaths
-from pydantic import BaseModel
+from ..constants import LCM_DEFAULT_MODEL, LCM_DEFAULT_MODEL_OPENVINO
+from ..utils.paths import FastStableDiffusionPaths
 
 
 class LCMLora(BaseModel):

@@ -2,20 +2,16 @@
 # based on the unofficial lucidrains/gigagan-pytorch repository. Heavily modified from there.
 #
 # https://mingukkang.github.io/GigaGAN/
-from math import log2, ceil
-from functools import partial
 from typing import Any, Optional, List, Iterable
-
-import torch
-from torchvision import transforms
-from PIL import Image
-from torch import nn, einsum, Tensor
-import torch.nn.functional as F
-
 from einops import rearrange, repeat, reduce
 from einops.layers.torch import Rearrange
-from torchvision.utils import save_image
-import math
+from torch import nn, einsum, Tensor
+import torch.nn.functional as F
+from torchvision import transforms
+from functools import partial
+from math import log2, ceil
+from PIL import Image
+import torch
 
 
 def get_same_padding(size, kernel, dilation, stride):
@@ -746,8 +742,8 @@ def create_checkerboard_weights(tile_size):
 def repeat_weights(weights, image_size):
     tile_size = weights.shape[0]
     repeats = (
-        math.ceil(image_size[0] / tile_size),
-        math.ceil(image_size[1] / tile_size),
+        ceil(image_size[0] / tile_size),
+        ceil(image_size[1] / tile_size),
     )
     return weights.repeat(repeats)[: image_size[0], : image_size[1]]
 

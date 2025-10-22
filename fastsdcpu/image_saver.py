@@ -1,9 +1,10 @@
-import json
 from os import path, mkdir
 from typing import Any
 from uuid import uuid4
-from models.lcmdiffusion_setting import LCMDiffusionSetting
-from utils.file import get_image_file_extension
+import json
+
+from .models.lcmdiffusion_setting import LCMDiffusionSetting
+from .utils.file import get_image_file_extension
 
 
 def get_exclude_keys():

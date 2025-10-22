@@ -3,16 +3,25 @@ Copyright(C) 2022-2023 Intel Corporation
 SPDX - License - Identifier: Apache - 2.0
 
 """
-import inspect
 from typing import Union, Optional, Any, List, Dict
-import numpy as np
-# openvino
-from openvino.runtime import Core
-# tokenizer
 from transformers import CLIPTokenizer
-import torch
+from openvino.runtime import Core
+import concurrent.futures
+from PIL import Image
+import numpy as np
+import inspect
 import random
+import torch
+import glob
+import json
+import time
+import cv2
+import os
 
+
+from diffusers.image_processor import VaeImageProcessor
+from diffusers.utils.torch_utils import randn_tensor
+from diffusers.utils import PIL_INTERPOLATION
 from diffusers import DiffusionPipeline
 from diffusers.schedulers import (DDIMScheduler,
                                   LMSDiscreteScheduler,
@@ -20,24 +29,6 @@ from diffusers.schedulers import (DDIMScheduler,
                                   EulerDiscreteScheduler,
                                   EulerAncestralDiscreteScheduler)
 
-
-from diffusers.image_processor import VaeImageProcessor
-from diffusers.utils.torch_utils import randn_tensor
-from diffusers.utils import PIL_INTERPOLATION
-
-import cv2
-import os
-import sys
-
-# for multithreading 
-import concurrent.futures
-
-#For GIF
-import PIL
-from PIL import Image
-import glob
-import json
-import time
 
 def scale_fit_to_window(dst_width:int, dst_height:int, image_width:int, image_height:int):
     """
@@ -56,15 +47,15 @@ def scale_fit_to_window(dst_width:int, dst_height:int, image_width:int, image_he
     im_scale = min(dst_height / image_height, dst_width / image_width)
     return int(im_scale * image_width), int(im_scale * image_height)
 
-def preprocess(image: PIL.Image.Image, ht=512, wt=512):
+def preprocess(image: Image.Image, ht=512, wt=512):
     """
-    Image preprocessing function. Takes image in PIL.Image format, resizes it to keep aspect ration and fits to model input window 512x512,
+    Image preprocessing function. Takes image in Image format, resizes it to keep aspect ration and fits to model input window 512x512,
     then converts it to np.ndarray and adds padding with zeros on right or bottom side of image (depends from aspect ratio), after that
     converts data to float32 data type and change range of values from [0, 255] to [-1, 1], finally, converts data layout from planar NHWC to NCHW.
     The function returns preprocessed input tensor and padding size, which can be used in postprocessing.
 
     Parameters:
-      image (PIL.Image.Image): input image
+      image (Image.Image): input image
     Returns:
        image (np.ndarray): preprocessed image tensor
        meta (Dict): dictionary with preprocessing metadata info
@@ -75,7 +66,7 @@ def preprocess(image: PIL.Image.Image, ht=512, wt=512):
     dst_width, dst_height = scale_fit_to_window(
         wt, ht, src_width, src_height)
     image = np.array(image.resize((dst_width, dst_height),
-                     resample=PIL.Image.Resampling.LANCZOS))[None, :]
+                     resample=Image.Resampling.LANCZOS))[None, :]
 
     pad_width = wt - dst_width
     pad_height = ht - dst_height
@@ -355,12 +346,12 @@ class StableDiffusionEngineAdvanced(DiffusionPipeline):
 
         return image
 
-    def prepare_latents(self, image:PIL.Image.Image = None, latent_timestep:torch.Tensor = None, scheduler = LMSDiscreteScheduler):
+    def prepare_latents(self, image:Image.Image = None, latent_timestep:torch.Tensor = None, scheduler = LMSDiscreteScheduler):
         """
         Function for getting initial latents for starting generation
 
         Parameters:
-            image (PIL.Image.Image, *optional*, None):
+            image (Image.Image, *optional*, None):
                 Input image for generation, if not provided randon noise will be used as starting point
             latent_timestep (torch.Tensor, *optional*, None):
                 Predicted by scheduler initial step for image generation, required for latent image mixing with nosie
@@ -400,7 +391,7 @@ class StableDiffusionEngineAdvanced(DiffusionPipeline):
     def postprocess_image(self, image:np.ndarray, meta:Dict):
         """
         Postprocessing for decoded image. Takes generated image decoded by VAE decoder, unpad it to initial image size (if required), 
-        normalize and convert to [0, 255] pixels range. Optionally, convertes it from np.ndarray to PIL.Image format
+        normalize and convert to [0, 255] pixels range. Optionally, convertes it from np.ndarray to Image format
 
         Parameters:
             image (np.ndarray):
@@ -410,7 +401,7 @@ class StableDiffusionEngineAdvanced(DiffusionPipeline):
             output_type (str, *optional*, pil):
                 Output format for result, can be pil or numpy
         Returns:
-            image (List of np.ndarray or PIL.Image.Image):
+            image (List of np.ndarray or Image.Image):
                 Postprocessed images
 
                         if "src_height" in meta:
@@ -686,13 +677,13 @@ class StableDiffusionEngine(DiffusionPipeline):
 
         return image
 
-    def prepare_latents(self, image: PIL.Image.Image = None, latent_timestep: torch.Tensor = None,
+    def prepare_latents(self, image: Image.Image = None, latent_timestep: torch.Tensor = None,
                         scheduler=LMSDiscreteScheduler,model=None):
         """
         Function for getting initial latents for starting generation
 
         Parameters:
-            image (PIL.Image.Image, *optional*, None):
+            image (Image.Image, *optional*, None):
                 Input image for generation, if not provided randon noise will be used as starting point
             latent_timestep (torch.Tensor, *optional*, None):
                 Predicted by scheduler initial step for image generation, required for latent image mixing with nosie
@@ -737,7 +728,7 @@ class StableDiffusionEngine(DiffusionPipeline):
     def postprocess_image(self, image: np.ndarray, meta: Dict):
         """
         Postprocessing for decoded image. Takes generated image decoded by VAE decoder, unpad it to initila image size (if required),
-        normalize and convert to [0, 255] pixels range. Optionally, convertes it from np.ndarray to PIL.Image format
+        normalize and convert to [0, 255] pixels range. Optionally, convertes it from np.ndarray to Image format
 
         Parameters:
             image (np.ndarray):
@@ -747,7 +738,7 @@ class StableDiffusionEngine(DiffusionPipeline):
             output_type (str, *optional*, pil):
                 Output format for result, can be pil or numpy
         Returns:
-            image (List of np.ndarray or PIL.Image.Image):
+            image (List of np.ndarray or Image.Image):
                 Postprocessed images
 
                         if "src_height" in meta:
@@ -1268,7 +1259,7 @@ class LatentConsistencyEngineAdvanced(DiffusionPipeline):
     def __call__(
         self,
         prompt: Union[str, List[str]] = None,
-        init_image: Optional[PIL.Image.Image] = None,
+        init_image: Optional[Image.Image] = None,
         strength: Optional[float] = 0.8,
         height: Optional[int] = 512,
         width: Optional[int] = 512,
@@ -1632,12 +1623,12 @@ class StableDiffusionEngineReferenceOnly(DiffusionPipeline):
         #ref_image_latents = ref_image_latents.to(device=device, dtype=dtype)
         return ref_image_latents
     
-    def prepare_latents(self, image:PIL.Image.Image = None, latent_timestep:torch.Tensor = None, scheduler = LMSDiscreteScheduler):
+    def prepare_latents(self, image:Image.Image = None, latent_timestep:torch.Tensor = None, scheduler = LMSDiscreteScheduler):
         """
         Function for getting initial latents for starting generation
         
         Parameters:
-            image (PIL.Image.Image, *optional*, None):
+            image (Image.Image, *optional*, None):
                 Input image for generation, if not provided randon noise will be used as starting point
             latent_timestep (torch.Tensor, *optional*, None):
                 Predicted by scheduler initial step for image generation, required for latent image mixing with nosie
@@ -1677,7 +1668,7 @@ class StableDiffusionEngineReferenceOnly(DiffusionPipeline):
     def postprocess_image(self, image:np.ndarray, meta:Dict):
         """
         Postprocessing for decoded image. Takes generated image decoded by VAE decoder, unpad it to initila image size (if required), 
-        normalize and convert to [0, 255] pixels range. Optionally, convertes it from np.ndarray to PIL.Image format
+        normalize and convert to [0, 255] pixels range. Optionally, convertes it from np.ndarray to Image format
         
         Parameters:
             image (np.ndarray):
@@ -1687,7 +1678,7 @@ class StableDiffusionEngineReferenceOnly(DiffusionPipeline):
             output_type (str, *optional*, pil):
                 Output format for result, can be pil or numpy
         Returns:
-            image (List of np.ndarray or PIL.Image.Image):
+            image (List of np.ndarray or Image.Image):
                 Postprocessed images
 
                         if "src_height" in meta:
@@ -1750,10 +1741,10 @@ class StableDiffusionEngineReferenceOnly(DiffusionPipeline):
         guess_mode=False,
     ):
         if not isinstance(image, np.ndarray):
-            if isinstance(image, PIL.Image.Image):
+            if isinstance(image, Image.Image):
                 image = [image]
 
-            if isinstance(image[0], PIL.Image.Image):
+            if isinstance(image[0], Image.Image):
                 images = []
 
                 for image_ in image:

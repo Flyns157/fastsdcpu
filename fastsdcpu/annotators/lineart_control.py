@@ -1,7 +1,7 @@
-import numpy as np
-from annotators.control_interface import ControlInterface
 from controlnet_aux import LineartDetector
 from PIL.Image import Image
+
+from .control_interface import ControlInterface
 
 
 class LineArtControl(ControlInterface):

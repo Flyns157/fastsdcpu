@@ -1,4 +1,3 @@
-from constants import LCM_DEFAULT_MODEL
 from diffusers import (
     DiffusionPipeline,
     AutoencoderTiny,
@@ -7,7 +6,6 @@ from diffusers import (
     StableDiffusionPipeline,
 )
 import torch
-from tiny_autoencoder import get_tiny_autoencoder_repo_id
 from typing import Any
 from diffusers import (
     LCMScheduler,
@@ -19,6 +17,9 @@ from diffusers import (
     StableDiffusionXLControlNetPipeline,
 )
 import pathlib
+
+from ...tiny_autoencoder import get_tiny_autoencoder_repo_id
+from ...constants import LCM_DEFAULT_MODEL
 
 
 def _get_lcm_pipeline_from_base_model(

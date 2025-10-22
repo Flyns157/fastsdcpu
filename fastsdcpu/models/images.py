@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from enum import Enum
-from utils.paths import FastStableDiffusionPaths
+
+from ..utils.paths import FastStableDiffusionPaths
 
 
 class ImageFormat(str, Enum):

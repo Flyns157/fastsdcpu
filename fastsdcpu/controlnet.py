@@ -1,7 +1,8 @@
-import logging
-from PIL import Image
 from diffusers import ControlNetModel
-from models.lcmdiffusion_setting import (
+from PIL import Image
+import logging
+
+from .models.lcmdiffusion_setting import (
     DiffusionTask,
     ControlNetSetting,
 )

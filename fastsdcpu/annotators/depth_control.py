@@ -1,7 +1,8 @@
 import numpy as np
-from annotators.control_interface import ControlInterface
 from PIL import Image
 from transformers import pipeline
+
+from .control_interface import ControlInterface
 
 
 class DepthControl(ControlInterface):

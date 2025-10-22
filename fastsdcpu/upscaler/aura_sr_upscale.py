@@ -1,5 +1,6 @@
-from upscaler.aura_sr import AuraSR
 from PIL import Image
+
+from ..upscaler.aura_sr import AuraSR
 
 
 def upscale_aura_sr(image_path: str):
