@@ -19,3 +19,4 @@ controlnet-aux
 tomesd
 mcp
 fastapi-mcp
+torch<=2.8
