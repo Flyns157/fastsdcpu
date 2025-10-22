@@ -8,13 +8,13 @@ from controlnet import controlnet_settings_from_dict
 from utils.device import get_device_name
 from models.images import ImageFormat
 from models.lcmdiffusion_setting import DiffusionTask
-from upscale.tiled_upscale import generate_upscaled_image
+from upscaler.tiled_upscale import generate_upscaled_image
 from constants import APP_VERSION, DEVICE
 # from frontend.webui.image_variations_ui import generate_image_variations
 from models.interface_types import InterfaceType
-from src.utils.paths import FastStableDiffusionPaths, ensure_path
+from utils.paths import FastStableDiffusionPaths, ensure_path
 from state import get_context, get_settings
-from src.utils import show_system_info
+from utils import show_system_info
 
 parser = ArgumentParser(description=f"FAST SD CPU {constants.APP_VERSION}")
 parser.add_argument(
@@ -293,7 +293,7 @@ app_settings.settings.generated_images.save_image_quality = args.imagequality
 
 if not args.realtime:
     # To minimize realtime mode dependencies
-    from upscale.upscaler import upscale_image
+    from fastsdcpu.upscaler import upscale_image
     # from frontend.cli_interactive import interactive_mode
 
 if args.realtime:
