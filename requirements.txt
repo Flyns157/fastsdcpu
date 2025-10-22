@@ -4,7 +4,7 @@ transformers
 PyQt5
 Pillow
 openvino
-optimum-intel
+optimum-intel[openvino,diffusers]
 onnx
 numpy
 onnxruntime
