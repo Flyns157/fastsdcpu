@@ -14,3 +14,5 @@ configs/settings.yaml
 build/
 dist/
 fastsdcpu_pip.egg-info/
+
+key.txt
