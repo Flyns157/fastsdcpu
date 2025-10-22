@@ -20,3 +20,4 @@ tomesd
 mcp
 fastapi-mcp
 torch<=2.8
+huggingface_hub[hf_xet]
