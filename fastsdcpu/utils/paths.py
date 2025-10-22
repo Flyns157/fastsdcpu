@@ -1,9 +1,16 @@
 from pathlib import Path
 from time import time
-import constants
 import os
 
 from .file import get_image_file_extension
+from ..constants import (
+    CONFIG_DIRECTORY,
+    RESULTS_DIRECTORY,
+    APP_SETTINGS_FILE,
+    LORA_DIRECTORY,
+    MODELS_DIRECTORY,
+    CONTROLNET_DIRECTORY
+)
 
 
 def join_paths(
@@ -24,7 +31,7 @@ def get_app_path() -> str:
 
 
 def get_configs_path() -> str:
-    config_path = join_paths(get_app_path(), constants.CONFIG_DIRECTORY)
+    config_path = join_paths(get_app_path(), CONFIG_DIRECTORY)
     return config_path
 
 
@@ -34,13 +41,13 @@ class FastStableDiffusionPaths:
         configs_path = get_configs_path()
         settings_path = join_paths(
             configs_path,
-            constants.APP_SETTINGS_FILE,
+            APP_SETTINGS_FILE,
         )
         return settings_path
 
     @staticmethod
     def get_results_path() -> str:
-        results_path = join_paths(get_app_path(), constants.RESULTS_DIRECTORY)
+        results_path = join_paths(get_app_path(), RESULTS_DIRECTORY)
         return results_path
 
     @staticmethod
@@ -84,19 +91,19 @@ class FastStableDiffusionPaths:
 
     @staticmethod
     def get_lora_models_path() -> str:
-        lora_models_path = join_paths(get_app_path(), constants.LORA_DIRECTORY)
+        lora_models_path = join_paths(get_app_path(), LORA_DIRECTORY)
         return lora_models_path
 
     @staticmethod
     def get_controlnet_models_path() -> str:
         controlnet_models_path = join_paths(
-            get_app_path(), constants.CONTROLNET_DIRECTORY
+            get_app_path(), CONTROLNET_DIRECTORY
         )
         return controlnet_models_path
 
     @staticmethod
     def get_gguf_models_path() -> str:
-        models_path = join_paths(get_app_path(), constants.MODELS_DIRECTORY)
+        models_path = join_paths(get_app_path(), MODELS_DIRECTORY)
         guuf_models_path = join_paths(models_path, "gguf")
         return guuf_models_path
 
