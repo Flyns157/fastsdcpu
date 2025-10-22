@@ -4,8 +4,7 @@ setup(
     name='fastsdcpu-pip',
     version='0.1.1',
     packages=find_packages(
-        where='./src',
-        exclude=['./src/tests', 'docs']
+        exclude=['test', 'docs']
     ),
     description='Fast stable diffusion on CPU and AI PC ported to a pip module',
     long_description=open('README.md').read(),
@@ -15,9 +14,10 @@ setup(
     url='https://github.com/Flyns157/fastsdcpu/pip',
     classifiers=[
         'Programming Language :: Python :: 3',
-        'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
     ],
+    license="MIT AND (Apache-2.0 OR BSD-2-Clause)",
+    license_files = ["THIRD-PARTY-LICENSES", "LICENSE"],
     python_requires='>=3.11',
     install_requires=open('requirements.txt').read().splitlines(),
 )
