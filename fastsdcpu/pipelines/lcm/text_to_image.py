@@ -37,7 +37,7 @@ from gguf_diffusion import (
     Txt2ImgConfig,
     SampleMethod,
 )
-from src.utils.paths import get_app_path
+from utils.paths import get_app_path
 from pprint import pprint
 
 try:
