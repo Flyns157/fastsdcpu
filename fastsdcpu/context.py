@@ -40,7 +40,7 @@ class Context:
         try:
             self._error = ""
             tick = perf_counter()
-            from state import get_settings
+            from .state import get_settings
 
             if (
                 settings.lcm_diffusion_setting.diffusion_task
@@ -75,7 +75,7 @@ class Context:
 
             if settings.lcm_diffusion_setting.use_safety_checker:
                 print("Safety Checker is enabled")
-                from state import get_safety_checker
+                from .state import get_safety_checker
 
                 safety_checker = get_safety_checker()
                 blank_image = get_blank_image(
