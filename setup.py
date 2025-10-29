@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='fastsdcpu-pip',
-    version='0.1.5',
+    version='0.1.6',
     packages=find_packages(
         exclude=['test', 'docs']
     ),

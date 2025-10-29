@@ -8,7 +8,7 @@ LCM_DEFAULT_MODEL_OPENVINO = "rupeshs/sd-turbo-openvino"
 APP_NAME = "FastSD CPU"
 APP_SETTINGS_FILE = "settings.yaml"
 RESULTS_DIRECTORY = "results"
-CONFIG_DIRECTORY = "configs"
+CONFIG_DIRECTORY = environ.get("CONFIG_DIRECTORY", "configs")
 DEVICE = environ.get("DEVICE", "cpu")
 SD_MODELS_FILE = "stable-diffusion-models.txt"
 LCM_LORA_MODELS_FILE = "lcm-lora-models.txt"
@@ -20,7 +20,19 @@ LCM_MODELS_FILE = "lcm-models.txt"
 TAESDXL_MODEL_OPENVINO = "rupeshs/taesdxl-openvino"
 LORA_DIRECTORY = "lora_models"
 CONTROLNET_DIRECTORY = "controlnet_models"
-MODELS_DIRECTORY = "models"
+MODELS_DIRECTORY = environ.get("MODELS_DIRECTORY", "models")
 GGUF_THREADS = environ.get("GGUF_THREADS", cpus)
 TAEF1_MODEL_OPENVINO = "rupeshs/taef1-openvino"
 SAFETY_CHECKER_MODEL = "Falconsai/nsfw_image_detection"
+
+def set_device(device: str):
+    global DEVICE
+    DEVICE = device
+
+def set_config_directory(directory: str):
+    global CONFIG_DIRECTORY
+    CONFIG_DIRECTORY = directory
+
+def set_models_directory(directory: str):
+    global MODELS_DIRECTORY
+    MODELS_DIRECTORY = directory
